@@ -12,12 +12,22 @@ constructor(){
     this.biquadFilter = this.audioContext.createBiquadFilter()
   }
 
+  componentDidMount(){
+    const canvas = this.refs.canvas
+    const ctx = canvas.getContext("2d")
+    const ctxTwo = canvas.getContext("2d")
+
+      ctx.fillStyle = '#7cce2b';
+    ctx.rect(50, 70, 75, 75 );
+    ctxTwo.rect(0, 0, 75, 75)
+    ctx.fill();
+  }
 state={
   frequency:0
 }
 
 handleInterval=()=>{
-   this.interval = setInterval(this.handleNotePlay, 100)
+   this.interval = setInterval(this.handleNotePlay, 200)
 }
 
 handleClearInterval=()=>{
@@ -79,7 +89,8 @@ handleFreqSelect=(event)=>{
     return (
       <div className="App">
       sup
-      <canvas id="canvas" onMouseLeave={this.handleClearInterval} onMouseMove={(event)=>this.handleFreqSelect(event)} onMouseDown={this.handleInterval} onMouseUp={this.handleClearInterval}></canvas>
+      <canvas ref="canvas" id="canvas" onMouseLeave={this.handleClearInterval} onMouseMove={(event)=>this.handleFreqSelect(event)} onMouseDown={this.handleInterval} onMouseUp={this.handleClearInterval}/>
+
       </div>
     );
   }
