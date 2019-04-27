@@ -4,7 +4,8 @@ import './App.css';
 
 class App extends Component {
 
-interval
+noteInterval
+circleInterval
 constructor(){
     super()
     this.audioContext = new AudioContext();
@@ -18,27 +19,61 @@ constructor(){
     canvas.width = 1000
     const ctx = canvas.getContext("2d")
     // const ctxTwo = canvas.getContext("2d")
+    ctx.fillStyle = 'pink'
+    ctx.fillRect(0,0,1000,75)
+    ctx.fillStyle = 'green'
+    ctx.fillRect(0,75,1000,75)
+
     ctx.beginPath()
-    ctx.moveTo(200, 300)
-    ctx.lineTo(75, 600)
+    // ctx.moveTo(200, 300)
+    // ctx.lineTo(75, 400)
     ctx.strokeStyle = "blue"
     ctx.stroke()
-
-      // ctx.fillStyle = '#7cce2b';
-    // ctx.rect(50, 70, 75, 75,'#7cce2b');
-    // ctxTwo.rect(0, 0, 75, 75)
-    // ctx.fill();
   }
 state={
-  frequency:0
+  frequency:0,
+  coordX: 0,
+  coordY: 0
+}
+
+handleDrawCircles=(event)=>{
+  console.log(event.clientX);
+  this.circleInterval = setInterval(()=>this.handleDrawArc(event), 100)
+}
+
+handleDrawArc=(event)=>{
+
+  const canvas = this.refs.canvas
+  const ctx = canvas.getContext("2d")
+
+  for (var i = 0; i < 1; i++) {
+    let x = this.state.coordX
+    let y = this.state.coordY
+    let realX = (window.innerWidth - canvas.width)/2
+    console.log(window.innerWidth);
+
+    ctx.beginPath()
+    ctx.arc(x -realX, y, 30, Math.PI * 2, false)
+    ctx.stroke()
+  }
+
+}
+handleClearRect=()=>{
+  const canvas = this.refs.canvas
+  const ctx = canvas.getContext("2d")
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 }
 
 handleInterval=()=>{
-   this.interval = setInterval(this.handleNotePlay, 200)
+  this.handleDrawArc()
+   this.noteInterval = setInterval(this.handleNotePlay, 200)
 }
 
 handleClearInterval=()=>{
-  clearInterval(this.interval)
+  clearInterval(this.noteInterval)
+  // clearInterval(this.cirxcleInterval)
+
 }
 
 handleNotePlay=()=>{
@@ -51,6 +86,10 @@ handleNotePlay=()=>{
 }
 
 handleFreqSelect=(event)=>{
+  this.setState({
+    coordX: event.pageX,
+    coordY: event.pageY
+  })
   if (event.pageY <= 75) {
       this.setState({
         frequency:440
@@ -93,10 +132,11 @@ handleFreqSelect=(event)=>{
 
 
   render() {
+
     return (
       <div className="App">
       sup
-      <canvas ref="canvas" id="canvas" onMouseLeave={this.handleClearInterval} onMouseMove={(event)=>this.handleFreqSelect(event)} onMouseDown={this.handleInterval} onMouseUp={this.handleClearInterval}/>
+      <canvas ref="canvas" id="canvas" onMouseOver={(event)=>this.handleDrawCircles(event)} onMouseLeave={this.handleClearInterval} onMouseMove={(event)=>this.handleFreqSelect(event)} onMouseDown={this.handleInterval} onMouseUp={this.handleClearInterval}/>
 
       </div>
     );
