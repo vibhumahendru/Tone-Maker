@@ -14,13 +14,20 @@ constructor(){
 
   componentDidMount(){
     const canvas = this.refs.canvas
+    canvas.height = 525
+    canvas.width = 1000
     const ctx = canvas.getContext("2d")
-    const ctxTwo = canvas.getContext("2d")
+    // const ctxTwo = canvas.getContext("2d")
+    ctx.beginPath()
+    ctx.moveTo(200, 300)
+    ctx.lineTo(75, 600)
+    ctx.strokeStyle = "blue"
+    ctx.stroke()
 
-      ctx.fillStyle = '#7cce2b';
-    ctx.rect(50, 70, 75, 75 );
-    ctxTwo.rect(0, 0, 75, 75)
-    ctx.fill();
+      // ctx.fillStyle = '#7cce2b';
+    // ctx.rect(50, 70, 75, 75,'#7cce2b');
+    // ctxTwo.rect(0, 0, 75, 75)
+    // ctx.fill();
   }
 state={
   frequency:0
