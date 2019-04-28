@@ -161,6 +161,10 @@ handleFreqSelect=(event)=>{
   }
 }
 
+handleClearNote = ()=>{
+clearInterval(this.noteInterval)
+}
+
 
 
 
@@ -170,7 +174,7 @@ handleFreqSelect=(event)=>{
     return (
       <div className="App">
       sup
-      <canvas ref="canvas" id="canvas" onMouseOver={(event)=>this.handleDrawCircles(event)} onMouseLeave={this.handleClearInterval} onMouseMove={(event)=>this.handleFreqSelect(event)} onMouseDown={this.handleInterval} onMouseUp={this.handleClearInterval}/>
+      <canvas ref="canvas" id="canvas" onMouseOver={(event)=>this.handleDrawCircles(event)} onMouseLeave={this.handleClearInterval} onMouseMove={(event)=>this.handleFreqSelect(event)} onMouseDown={this.handleInterval} onMouseUp={this.handleClearNote}/>
 
       </div>
     );
