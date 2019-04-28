@@ -19,10 +19,22 @@ constructor(){
     canvas.width = 1000
     const ctx = canvas.getContext("2d")
     // const ctxTwo = canvas.getContext("2d")
-    ctx.fillStyle = 'pink'
+    ctx.fillStyle = '#b2ff59'
     ctx.fillRect(0,0,1000,75)
-    ctx.fillStyle = 'green'
+    ctx.fillStyle = '#eeff41'
     ctx.fillRect(0,75,1000,75)
+    ctx.fillStyle = '#64ffda'
+    ctx.fillRect(0,150,1000,75)
+    ctx.fillStyle = '#18ffff'
+    ctx.fillRect(0,225,1000,75)
+    ctx.fillStyle = '#ff4081'
+    ctx.fillRect(0,300,1000,75)
+    ctx.fillStyle = '#ffa726'
+    ctx.fillRect(0,375,1000,75)
+    ctx.fillStyle = '#03a9f4'
+    ctx.fillRect(0,450,1000,75)
+    ctx.fillStyle = '#e53935'
+    ctx.fillRect(0,525,1000,75)
 
     ctx.beginPath()
     // ctx.moveTo(200, 300)
@@ -50,11 +62,15 @@ handleDrawArc=(event)=>{
     let x = this.state.coordX
     let y = this.state.coordY
     let realX = (window.innerWidth - canvas.width)/2
-    console.log(window.innerWidth);
 
+    let colorNum = Math.floor(Math.random() * 6) + 0
+    let colors = ["green", "red", "blue", "orange", "purple", "pink"]
+    console.log(colorNum);
     ctx.beginPath()
     ctx.arc(x -realX, y, 30, Math.PI * 2, false)
+    ctx.strokeStyle = colors[colorNum]
     ctx.stroke()
+    console.log("hi");
   }
 
 }
@@ -62,6 +78,23 @@ handleClearRect=()=>{
   const canvas = this.refs.canvas
   const ctx = canvas.getContext("2d")
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = '#b2ff59'
+  ctx.fillRect(0,0,1000,75)
+  ctx.fillStyle = '#eeff41'
+  ctx.fillRect(0,75,1000,75)
+  ctx.fillStyle = '#64ffda'
+  ctx.fillRect(0,150,1000,75)
+  ctx.fillStyle = '#18ffff'
+  ctx.fillRect(0,225,1000,75)
+  ctx.fillStyle = '#ff4081'
+  ctx.fillRect(0,300,1000,75)
+  ctx.fillStyle = '#ffa726'
+  ctx.fillRect(0,375,1000,75)
+  ctx.fillStyle = '#03a9f4'
+  ctx.fillRect(0,450,1000,75)
+  ctx.fillStyle = '#e53935'
+  ctx.fillRect(0,525,1000,75)
 
 }
 
@@ -72,7 +105,8 @@ handleInterval=()=>{
 
 handleClearInterval=()=>{
   clearInterval(this.noteInterval)
-  // clearInterval(this.cirxcleInterval)
+  clearInterval(this.circleInterval)
+  this.handleClearRect()
 
 }
 
